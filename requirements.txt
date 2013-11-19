@@ -1,0 +1,6 @@
+Django==1.5.4
+PIL==1.1.7
+South==0.8.2
+django-filebrowser==3.5.2
+django-grappelli==2.4.6
+wsgiref==0.1.2

@@ -43,6 +43,10 @@ class FTPUser(AbstractUser):
         verbose_name_plural = 'FTP Users'
 
 class FTPClient(FTPUser):
+    def __init__(self, *args, **kwargs):
+        self._meta.get_field('ftpuid').default = settings.CLIENT_UID
+        self._meta.get_field('ftpgid').default = settings.CLIENT_GID
+        super(FTPUser, self).__init__(*args, **kwargs)
 
     def __repr__(self):
         return repr(u'<FTPClient: %s>' % self.username)
@@ -50,7 +54,7 @@ class FTPClient(FTPUser):
     def save(self, *args, **kwargs):
         self.is_staff = False
         self.is_superuser = False
-        
+
         if self.pk is None and settings.USER_EXPIRY_DAYS is not 0:
             self.expiry_date = datetime.now()+timedelta(days=settings.USER_EXPIRY_DAYS)
 
@@ -62,10 +66,15 @@ class FTPClient(FTPUser):
         super(FTPClient, self).save(*args, **kwargs)
 
     class Meta:
+        proxy = True
         verbose_name = 'FTP Client'
         verbose_name_plural = 'FTP Clients'
 
 class FTPStaff(FTPUser):
+    def __init__(self, *args, **kwargs):
+        self._meta.get_field('ftpuid').default = settings.STAFF_UID
+        self._meta.get_field('ftpgid').default = settings.STAFF_GID
+        super(FTPUser, self).__init__(*args, **kwargs)
 
     def __repr__(self):
         return repr(u'<FTPStaff: %s>' % self.username)
@@ -82,9 +91,10 @@ class FTPStaff(FTPUser):
             g = Group.objects.get(name='FTP Staff')
         except DoesNotExist:
             pass
-        else: 
+        else:
             self.groups.add(g)
-        
+
     class Meta:
+        proxy = True
         verbose_name = 'FTP Staff'
         verbose_name_plural = 'FTP Staff'

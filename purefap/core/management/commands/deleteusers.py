@@ -20,27 +20,7 @@ class Command(BaseCommand):
     help = 'Delete expired/inactive users' 
 
     def handle(self, *args, **options):
-        for u in FTPUser.objects.all():
-            if u.expiry_date and u.expiry_date.isocalendar() < datetime.now().isocalendar():
-                self.stdout.write("User %s will be deleted" % u)
-                if options ['files']:
-                    self.stdout.write(" - Directory %s and its contents will be deleted" % u.homedir)
-                if not options['noop']:
-                    if options['files']:
-                        shutil.rmtree(u.homedir)
-                    u.delete()
-
         for u in FTPClient.objects.all():
-            if u.expiry_date and u.expiry_date.isocalendar() < datetime.now().isocalendar():
-                self.stdout.write("User %s will be deleted" % u)
-                if options ['files']:
-                    self.stdout.write(" - Directory %s and its contents will be deleted" % u.homedir)
-                if not options['noop']:
-                    if options['files']:
-                        shutil.rmtree(u.homedir)
-                    u.delete()
-
-        for u in FTPStaff.objects.all():
             if u.expiry_date and u.expiry_date.isocalendar() < datetime.now().isocalendar():
                 self.stdout.write("User %s will be deleted" % u)
                 if options ['files']:

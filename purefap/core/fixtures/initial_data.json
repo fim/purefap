@@ -1,1 +1,1 @@
-[{"pk": 1, "model": "auth.group", "fields": {"name": "FTP Staff", "permissions": [["add_ftpclient", "core", "ftpclient"], ["change_ftpclient", "core", "ftpclient"], ["delete_ftpclient", "core", "ftpclient"]]}}]
+[{"pk": 1, "model": "auth.group", "fields": {"name": "FTP Staff", "permissions": [["add_ftpclient", "core", "ftpuser"], ["change_ftpclient", "core", "ftpuser"], ["delete_ftpclient", "core", "ftpuser"]]}}]

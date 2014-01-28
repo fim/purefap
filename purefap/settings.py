@@ -22,9 +22,6 @@ DATABASES = {
 }
 
 
-
-
-
 # Hosts/domain names that are valid for this site; required if DEBUG is False
 # See https://docs.djangoproject.com/en/1.5/ref/settings/#allowed-hosts
 ALLOWED_HOSTS = []
@@ -173,6 +170,7 @@ LOGGING = {
     }
 }
 
+
 # Custom settings
 AUTH_USER_MODEL="core.FTPUser"
 
@@ -185,6 +183,15 @@ FTP_CHROOT="/home/ftp"
 
 # Validity period of new ftp client accounts
 USER_EXPIRY_DAYS=30
+
+# Default UID/GID for users
+import pwd
+DEFAULT_UID=pwd.getpwnam('nobody').pw_uid
+DEFAULT_GID=pwd.getpwnam('nobody').pw_gid
+CLIENT_UID=DEFAULT_UID
+CLIENT_GID=DEFAULT_GID
+STAFF_UID=DEFAULT_UID
+STAFF_GID=DEFAULT_GID
 
 # Filebrowser settings
 MEDIA_ROOT = FTP_CHROOT

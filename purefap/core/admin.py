@@ -21,6 +21,9 @@ class FTPUserAdmin(UserAdmin):
                 }),
         )
 
+    def queryset(self, request):
+        return self.model.objects.filter(is_staff=True, is_superuser=False)
+
 class FTPClientAdmin(UserAdmin):
     form = FTPClientChangeForm
     add_form = FTPClientAddForm
@@ -36,6 +39,9 @@ class FTPClientAdmin(UserAdmin):
                 'fields' : ('is_active',)
                 }),
         )
+
+    def queryset(self, request):
+        return self.model.objects.filter(is_staff=False)
 
 class FTPStaffAdmin(UserAdmin):
     form = FTPStaffChangeForm

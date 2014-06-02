@@ -27,5 +27,5 @@ class Command(BaseCommand):
                     self.stdout.write(" - Directory %s and its contents will be deleted" % u.homedir)
                 if not options['noop']:
                     if options['files']:
-                        shutil.rmtree(u.homedir)
+                        shutil.rmtree(u.homedir.path)
                     u.delete()
